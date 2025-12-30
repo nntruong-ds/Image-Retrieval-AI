@@ -1,0 +1,25 @@
+Mô tả chi tiết:
+
+Số lượng hình ảnh: Tổng cộng 8,092 hình ảnh (một số nguồn ghi tròn là 8,000, nhưng chính xác là 8,092 ảnh JPEG).
+Mô tả (captions): Mỗi hình ảnh được ghép đôi với chính xác 5 captions (mô tả văn bản) khác nhau do con người viết thủ công. Các captions này mô tả rõ ràng các thực thể chính (entities) và sự kiện (events) nổi bật trong ảnh, giúp dataset phù hợp cho việc huấn luyện mô hình tạo mô tả đa dạng và chính xác.
+Nguồn gốc hình ảnh: Các ảnh được chọn từ Flickr (nền tảng chia sẻ ảnh), cụ thể từ 6 nhóm (groups) khác nhau trên Flickr. Chúng được chọn thủ công để:
+Tránh các nhân vật nổi tiếng hoặc địa điểm nổi tiếng (no famous people or locations).
+Tập trung vào đa dạng các cảnh đời thường, tình huống thực tế (variety of scenes and situations), như người chơi thể thao, động vật, cảnh ngoài trời, hoạt động hàng ngày, v.v.
+
+Phân chia dữ liệu (splits): Dataset được chia sẵn thành:
+Train: 6,000 hình ảnh.
+Validation (Dev): 1,000 hình ảnh.
+Test: 1,000 hình ảnh.
+(Các file text như Flickr_8k.trainImages.txt, Flickr_8k.devImages.txt, Flickr_8k.testImages.txt liệt kê tên file ảnh tương ứng).
+
+Cấu trúc file phổ biến:
+Thư mục ảnh: Chứa tất cả 8,092 file JPEG (kích thước và tỷ lệ khác nhau).
+File captions chính: Flickr8k.token.txt (dạng: image_id#sentence_number caption_text).
+Các file phụ: ExpertAnnotations.txt (thông tin đánh giá từ chuyên gia), CrowdAnnotations.txt (nếu có).
+
+Mục đích sử dụng:
+Chủ yếu để nghiên cứu và phát triển mô hình automatic image caption generation (tạo caption tự động cho ảnh).
+Được sử dụng rộng rãi trong các paper kinh điển như "Show and Tell" (Google), hoặc các mô hình CNN-LSTM, Transformer-based captioning.
+Đánh giá mô hình thường dùng metric như BLEU, METEOR, CIDEr.
+
+Tác giả và trích dẫn: Được tạo bởi Micah Hodosh, Peter Young, và Julia Hockenmaier (University of Illinois at Urbana-Champaign). Paper liên quan: "Framing image description as a ranking task: Data, models and evaluation metrics" (Journal of Artificial Intelligence Research, 2013).
