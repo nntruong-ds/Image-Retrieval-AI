@@ -1,0 +1,33 @@
+📄 1. Giải thích chi tiết 
++ ft.py (Fine-Tuning): Dùng để huấn luyện lại mô hình CLIP. Nó đọc ảnh và mô tả (captions) từ tập dữ liệu Flickr8k, sau đó dạy cho mô hình cách hiểu mối liên hệ giữa ngôn ngữ và hình ảnh cụ thể trong tập dữ liệu này.
++ ai2.py (Inference & Server): Dùng để chạy ứng dụng. File này thực hiện 2 việc:
+Trích xuất đặc trưng (vector) của toàn bộ kho ảnh để tạo cơ sở dữ liệu.
+Khởi tạo một Server (FastAPI) cho phép bạn tìm kiếm ảnh bằng văn bản hoặc bằng một ảnh khác (Hybrid Search).
+🛠 2. Hướng dẫn Cài đặt
+1. Cài đặt thư viện (Chỉ các mục cần thiết)
+Mở một ô mã nguồn (cell) mới và chạy lệnh này để cài đặt môi trường:
+!pip install transformers torch fastapi uvicorn pyngrok deep-translator
+2. Kết nối dữ liệu
+Để máy ảo Colab truy cập được vào bộ dữ liệu 8kflick và Model đã lưu của bạn:
+from google.colab import drive
+drive.mount('/content/drive')
+3. Thiết lập GPU
+Hệ thống này yêu cầu GPU để xử lý vector ảnh và văn bản nhanh chóng:
+Vào Runtime (Thời gian chạy) -> Change runtime type (Thay đổi loại thời gian chạy).
+Chọn T4 GPU.
+🚀 3. Hướng dẫn Sử dụng
+1. Chuẩn bị Dữ liệu (Dùng ft.py)
+Mục đích: Huấn luyện mô hình hiểu tập dữ liệu 8kflick.
+Thao tác: Chạy toàn bộ file ft.py để tạo và lưu mô hình đã fine-tune vào Google Drive tại đường dẫn /MyDrive/clip_flickr8k_finetuned.
+2. Số hóa kho ảnh (Dùng ai2.py - Phần đầu)
+Mục đích: Chuyển toàn bộ ảnh trong thư mục thành các vector toán học để máy tính so sánh được.
+Thao tác:
+Chạy hàm extract_image_features để quét thư mục ảnh /imgresize/.
+Kết quả sẽ được lưu thành file image_vectors.npy trên Drive để làm "cơ sở dữ liệu" tìm kiếm.
+3. Tìm kiếm & Chạy Server (Dùng ai2.py - Phần cuối)
+Mục đích: Tạo giao diện kết nối để bắt đầu truy vấn ảnh.
+Thao tác:
+Dán mã Ngrok Token vào biến NGROK_TOKEN.
+Chạy cell cuối cùng để nhận Public URL.
+Truy vấn: Bạn gửi từ khóa (Text) hoặc file ảnh lên URL này; hệ thống sẽ tính độ tương đồng Cosine (Cosine Similarity) và trả về 5 ảnh giống nhất dưới dạng Base64.
+Lưu ý: Luôn đảm bảo đã Mount Drive (drive.mount('/content/drive')) trước khi chạy bất kỳ bước nào.
